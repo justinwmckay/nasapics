@@ -6,6 +6,10 @@ struct ContentView: View {
     @State private var imageDate: String = ""
     @State private var favoriteImageDates: [String] = []
 
+    var isFavorite: Bool {
+        return favoriteImageDates.contains(imageDate)
+    }
+    
     var body: some View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
@@ -36,11 +40,17 @@ struct ContentView: View {
                             .cornerRadius(10)
                     }
                     
-                    Button(action: saveFavoriteImage) {
-                        Text("Favorite")
+                    Button(action: {
+                        if isFavorite {
+                            removeFavoriteImage()
+                        } else {
+                            saveFavoriteImage()
+                        }
+                    }) {
+                        Text(isFavorite ? "Unfavorite" : "Favorite")
                             .padding()
                             .font(.title2)
-                            .background(Color.green)
+                            .background(isFavorite ? Color.red : Color.green)
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
@@ -82,6 +92,12 @@ struct ContentView: View {
             self.favoriteImageDates.append(imageDate)
         }
     }
+    
+    private func removeFavoriteImage() {
+        if let index = favoriteImageDates.firstIndex(of: imageDate) {
+            self.favoriteImageDates.remove(at: index)
+        }
+    }
 
     private func fetchFavoriteImage() {
         NetworkManager.shared.fetchImage(for: imageDate) { image in
@@ -92,5 +108,4 @@ struct ContentView: View {
             }
         }
     }
-
 }
