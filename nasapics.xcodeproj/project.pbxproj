@@ -17,6 +17,8 @@
 		A95575E82A213A3E0039F109 /* NASAImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95575E72A213A3E0039F109 /* NASAImage.swift */; };
 		A95575EA2A213A550039F109 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95575E92A213A550039F109 /* NetworkManager.swift */; };
 		A95575ED2A213AEF0039F109 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = A95575EC2A213AEF0039F109 /* SDWebImageSwiftUI */; };
+		A95575EF2A2145C40039F109 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95575EE2A2145C40039F109 /* Persistence.swift */; };
+		A95575F22A2145E60039F109 /* FavoritesModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A95575F02A2145E60039F109 /* FavoritesModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		A95575DA2A213A040039F109 /* nasapicsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nasapicsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A95575E72A213A3E0039F109 /* NASAImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NASAImage.swift; sourceTree = "<group>"; };
 		A95575E92A213A550039F109 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		A95575EE2A2145C40039F109 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		A95575F12A2145E60039F109 /* FavoritesModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavoritesModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				A95575C32A213A040039F109 /* Preview Content */,
 				A95575E72A213A3E0039F109 /* NASAImage.swift */,
 				A95575E92A213A550039F109 /* NetworkManager.swift */,
+				A95575EE2A2145C40039F109 /* Persistence.swift */,
+				A95575F02A2145E60039F109 /* FavoritesModel.xcdatamodeld */,
 			);
 			path = nasapics;
 			sourceTree = "<group>";
@@ -275,6 +281,8 @@
 				A95575C02A213A020039F109 /* ContentView.swift in Sources */,
 				A95575BE2A213A020039F109 /* nasapicsApp.swift in Sources */,
 				A95575E82A213A3E0039F109 /* NASAImage.swift in Sources */,
+				A95575EF2A2145C40039F109 /* Persistence.swift in Sources */,
+				A95575F22A2145E60039F109 /* FavoritesModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,6 +626,19 @@
 			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		A95575F02A2145E60039F109 /* FavoritesModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A95575F12A2145E60039F109 /* FavoritesModel.xcdatamodel */,
+			);
+			currentVersion = A95575F12A2145E60039F109 /* FavoritesModel.xcdatamodel */;
+			path = FavoritesModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A95575B22A213A020039F109 /* Project object */;
 }

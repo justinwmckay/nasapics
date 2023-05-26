@@ -8,7 +8,7 @@ class NetworkManager {
     let apiKey = "2RU6Yl2xEN8H5BYdAdc7HmoopC2DH3dk2j2kghdX"
     
     func fetchImage(for date: String, completion: @escaping (NASAImage?) -> Void) {
-        guard let url = URL(string: "\(baseURL)?date=\(date)&api_key=\(apiKey)") else {
+        guard let url = URL(string: "\(baseURL)?date=\(date)&api_key=\(apiKey)&concept_tags=True") else {
             completion(nil)
             return
         }
@@ -20,6 +20,7 @@ class NetworkManager {
         let randomDate = self.randomDateInPastTenYears()
 
         guard let url = URL(string: "\(baseURL)?date=\(randomDate)&api_key=\(apiKey)") else {
+            print("here")
             completion(nil)
             return
         }
@@ -35,7 +36,10 @@ class NetworkManager {
             }
 
             do {
+                print("hooo");
+                print(data)
                 let image = try JSONDecoder().decode(NASAImage.self, from: data)
+                print(image);
                 completion(image)
             } catch {
                 completion(nil)
