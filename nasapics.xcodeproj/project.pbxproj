@@ -14,6 +14,9 @@
 		A95575CF2A213A040039F109 /* nasapicsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95575CE2A213A040039F109 /* nasapicsTests.swift */; };
 		A95575D92A213A040039F109 /* nasapicsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95575D82A213A040039F109 /* nasapicsUITests.swift */; };
 		A95575DB2A213A040039F109 /* nasapicsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95575DA2A213A040039F109 /* nasapicsUITestsLaunchTests.swift */; };
+		A95575E82A213A3E0039F109 /* NASAImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95575E72A213A3E0039F109 /* NASAImage.swift */; };
+		A95575EA2A213A550039F109 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95575E92A213A550039F109 /* NetworkManager.swift */; };
+		A95575ED2A213AEF0039F109 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = A95575EC2A213AEF0039F109 /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,8 @@
 		A95575D42A213A040039F109 /* nasapicsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = nasapicsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95575D82A213A040039F109 /* nasapicsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nasapicsUITests.swift; sourceTree = "<group>"; };
 		A95575DA2A213A040039F109 /* nasapicsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nasapicsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A95575E72A213A3E0039F109 /* NASAImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NASAImage.swift; sourceTree = "<group>"; };
+		A95575E92A213A550039F109 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A95575ED2A213AEF0039F109 /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +104,8 @@
 				A95575BF2A213A020039F109 /* ContentView.swift */,
 				A95575C12A213A040039F109 /* Assets.xcassets */,
 				A95575C32A213A040039F109 /* Preview Content */,
+				A95575E72A213A3E0039F109 /* NASAImage.swift */,
+				A95575E92A213A550039F109 /* NetworkManager.swift */,
 			);
 			path = nasapics;
 			sourceTree = "<group>";
@@ -143,6 +151,9 @@
 			dependencies = (
 			);
 			name = nasapics;
+			packageProductDependencies = (
+				A95575EC2A213AEF0039F109 /* SDWebImageSwiftUI */,
+			);
 			productName = nasapics;
 			productReference = A95575BA2A213A020039F109 /* nasapics.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +226,9 @@
 				Base,
 			);
 			mainGroup = A95575B12A213A020039F109;
+			packageReferences = (
+				A95575EB2A213AEF0039F109 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
 			productRefGroup = A95575BB2A213A020039F109 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -257,8 +271,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A95575EA2A213A550039F109 /* NetworkManager.swift in Sources */,
 				A95575C02A213A020039F109 /* ContentView.swift in Sources */,
 				A95575BE2A213A020039F109 /* nasapicsApp.swift in Sources */,
+				A95575E82A213A3E0039F109 /* NASAImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +599,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A95575EB2A213AEF0039F109 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A95575EC2A213AEF0039F109 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A95575EB2A213AEF0039F109 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A95575B22A213A020039F109 /* Project object */;
 }
