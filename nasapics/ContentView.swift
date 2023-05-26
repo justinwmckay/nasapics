@@ -9,8 +9,10 @@ struct ContentView: View {
     @State private var favoriteImageTitles: [String] = []
     @State private var favoriteImageUrls: [String: URL] = [:]
     @State private var imageExplanation: String = ""
+    @State private var imageExplanations: [String: String] = [:]
+    @State private var imageDate: String = ""
     @State private var showExplanationPopover: Bool = false
-    
+
     @Environment(\.managedObjectContext) private var viewContext
 
     var isFavorite: Bool {
@@ -25,10 +27,12 @@ struct ContentView: View {
                 Text(imageTitle)
                     .font(.title2)
                     .foregroundColor(.white)
-                    .padding(.top, 40)
-                
-
+                    .padding(.top, 30)
+                Text(imageDate)
+                    .font(.title3)
+                    .foregroundColor(.white)
                 Spacer()
+                
 
                 if let imageUrl = imageUrl {
                     WebImage(url: imageUrl)
@@ -49,17 +53,21 @@ struct ContentView: View {
                             isPresented: self.$showExplanationPopover,
                             arrowEdge: .bottom
                         ) {
-                            Text(imageExplanation).padding() // Display the explanation of the image in the popover
+                            Text(imageTitle)
+                                .font(.title2)
+                            Text(imageDate)
+                                .font(.title3)
+                            Text(imageExplanation).padding()
                         }
                 } else {
-                    Text("loading...")
+                    Text("...🚀")
                         .foregroundColor(.white)
                 }
 
                 Spacer()
 
                 HStack(spacing: 20) {
-                    if !favoriteImageTitles.isEmpty {
+//                    if !favoriteImageTitles.isEmpty {
                         Button(action: {
                             if isFavorite {
                                 removeFavoriteImage()
@@ -83,8 +91,10 @@ struct ContentView: View {
                         .onChange(of: selectedFavoriteTitle) { newValue in
                             imageUrl = favoriteImageUrls[newValue]
                             imageTitle = newValue
+                            imageExplanation = imageExplanations[newValue] ?? ""
+                            
                         }
-                    }
+//                    }
                 }
             }
             .padding()
@@ -102,6 +112,7 @@ struct ContentView: View {
                     self.imageUrl = url
                     self.imageTitle = image.title
                     self.imageExplanation = image.explanation
+                    self.imageDate = image.date
                 }
             }
         }
@@ -111,6 +122,7 @@ struct ContentView: View {
         if !favoriteImageTitles.contains(imageTitle) {
             self.favoriteImageTitles.append(imageTitle)
             self.favoriteImageUrls[imageTitle] = imageUrl
+            self.imageExplanations[imageTitle] = imageExplanation
             saveFavoriteImages()
         }
     }
@@ -136,6 +148,7 @@ struct ContentView: View {
                     let favoriteImage = FavoriteImage(context: context)
                     favoriteImage.title = title
                     favoriteImage.url = favoriteImageUrls[title]?.absoluteString
+                    favoriteImage.explanation = imageExplanations[title]
                 }
                 try context.save()
             } catch {
@@ -152,8 +165,9 @@ struct ContentView: View {
                 let savedFavorites = try context.fetch(fetchRequest)
                 favoriteImageTitles = savedFavorites.compactMap { $0.title }
                 for savedFavorite in savedFavorites {
-                    if let title = savedFavorite.title, let urlString = savedFavorite.url, let url = URL(string: urlString) {
+                    if let title = savedFavorite.title, let urlString = savedFavorite.url, let url = URL(string: urlString), let explanation = savedFavorite.explanation {
                         favoriteImageUrls[title] = url
+                        imageExplanations[title] = explanation
                     }
                 }
                 if let firstTitle = favoriteImageTitles.first {
