@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var showExplanationPopover: Bool = false
 
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
 
     var isFavorite: Bool {
         return favoriteImageTitles.contains(imageTitle)
@@ -22,15 +23,17 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
+            colorScheme == .dark ? Color.black.edgesIgnoringSafeArea(.all) : Color.white.edgesIgnoringSafeArea(.all)
+
 
             VStack {
                 Text(imageTitle)
                     .font(.title2)
-                    .foregroundColor(.white)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
                     .padding(.top, 30)
                 Text(imageDate)
                     .font(.title3)
-                    .foregroundColor(.white)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
                 Spacer()
                 
 
@@ -55,9 +58,13 @@ struct ContentView: View {
                         ) {
                             Text(imageTitle)
                                 .font(.title2)
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
                             Text(imageDate)
                                 .font(.title3)
-                            Text(imageExplanation).padding()
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
+                            Text(imageExplanation)
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
+                                .padding()
                         }
                 } else {
                     Text("...🚀")
@@ -78,8 +85,8 @@ struct ContentView: View {
                             Text("❤️")
                                 .padding()
                                 .font(.title2)
-                                .background(isFavorite ? Color.green : Color.black)
-                                .foregroundColor(.white)
+                                .background(isFavorite ? Color.green : (colorScheme == .dark ? .black : .white))
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
                                 .cornerRadius(10)
                         }
 //
