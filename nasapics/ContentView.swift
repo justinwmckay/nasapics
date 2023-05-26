@@ -8,6 +8,8 @@ struct ContentView: View {
     @State private var selectedFavoriteTitle: String = ""
     @State private var favoriteImageTitles: [String] = []
     @State private var favoriteImageUrls: [String: URL] = [:]
+    @State private var imageExplanation: String = ""
+    @State private var showExplanationPopover: Bool = false
     
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -34,6 +36,21 @@ struct ContentView: View {
                         .aspectRatio(contentMode: .fit)
                         .cornerRadius(20)
                         .padding(.bottom)
+                        .onTapGesture {
+                            fetchNASAImage()
+                        }
+                        .gesture(
+                            LongPressGesture(minimumDuration: 1.0)
+                                .onEnded { _ in
+                                    self.showExplanationPopover = true
+                                }
+                        )
+                        .popover(
+                            isPresented: self.$showExplanationPopover,
+                            arrowEdge: .bottom
+                        ) {
+                            Text(imageExplanation).padding() // Display the explanation of the image in the popover
+                        }
                 } else {
                     Text("loading...")
                         .foregroundColor(.white)
@@ -42,38 +59,22 @@ struct ContentView: View {
                 Spacer()
 
                 HStack(spacing: 20) {
-                    Button(action: fetchNASAImage) {
-                        Text("🚀")
-                            .padding()
-                            .font(.title2)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-
-                    Button(action: {
-                        if isFavorite {
-                            removeFavoriteImage()
-                        } else {
-                            saveFavoriteImage()
+                    if !favoriteImageTitles.isEmpty {
+                        Button(action: {
+                            if isFavorite {
+                                removeFavoriteImage()
+                            } else {
+                                saveFavoriteImage()
+                            }
+                        }) {
+                            Text("❤️")
+                                .padding()
+                                .font(.title2)
+                                .background(isFavorite ? Color.green : Color.black)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
                         }
-                    }) {
-                        Text(isFavorite ? "👎" : "👍")
-                            .padding()
-                            .font(.title2)
-                            .background(isFavorite ? Color.red : Color.green)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                }
-                .padding(.bottom, 20)
-
-                if !favoriteImageTitles.isEmpty {
-                    HStack(spacing: 5) {
-                        Text("❤️")
-                            .font(.title2)
-                            .foregroundColor(.white)
-                        
+//
                         Picker(selection: $selectedFavoriteTitle, label: EmptyView()) {
                             ForEach(favoriteImageTitles, id: \.self) { title in
                                 Text(title).tag(title)
@@ -84,9 +85,7 @@ struct ContentView: View {
                             imageTitle = newValue
                         }
                     }
-                    .padding(.bottom, 50)
                 }
-
             }
             .padding()
         }
@@ -102,6 +101,7 @@ struct ContentView: View {
                 DispatchQueue.main.async {
                     self.imageUrl = url
                     self.imageTitle = image.title
+                    self.imageExplanation = image.explanation
                 }
             }
         }
